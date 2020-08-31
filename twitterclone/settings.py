@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'twitteruser',
     'tweet',
-    'authentiction',
-    'notificaiton',
+    'authentication',
+    'notification',
 ]
 
 MIDDLEWARE = [
@@ -125,4 +125,4 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
 
-# AUTH_USER_MODEL = '' TODO add mddel e.g. twitterclone.TwitterUser
+AUTH_USER_MODEL = 'twitteruser.TwitterUser'
