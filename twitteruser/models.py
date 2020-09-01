@@ -3,4 +3,4 @@ from django.contrib.auth.models import AbstractUser
 
 
 class TwitterUser(AbstractUser):
-    display_name = models.CharField(max_length=240)
+    following = models.ManyToManyField("self", symmetrical=False)

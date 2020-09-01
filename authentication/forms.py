@@ -12,4 +12,4 @@ class SignupForm(forms.ModelForm):
 
     class Meta:
         model = TwitterUser
-        fields = ["username", "display_name"]
+        fields = ["username"]

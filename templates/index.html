@@ -5,5 +5,10 @@
   </head>
   <body>
     {{ request.user.username }}
+    <ul>
+      {% for tweet in tweets %}
+      <li>{{ tweet.text }}</li>
+      {% endfor %}
+    </ul>
   </body>
 </html>

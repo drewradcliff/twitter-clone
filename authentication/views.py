@@ -29,7 +29,6 @@ def signup_view(request):
             new_user = TwitterUser.objects.create_user(
                 username=data.get("username"),
                 password=data.get("password"),
-                display_name=data.get("display_name")
             )
         login(request, new_user)
         return HttpResponseRedirect(reverse("index"))

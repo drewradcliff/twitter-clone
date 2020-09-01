@@ -3,13 +3,16 @@ from django.contrib.auth.decorators import login_required
 
 from tweet.forms import TweetForm
 from tweet.models import Tweet
+from twitteruser.models import TwitterUser
 
 
 @login_required
 def index(request):
-    return render(request, "index.html")
+    tweets = Tweet.objects.filter(user__in=request.user.following.all())
+    return render(request, "index.html", {"tweets": tweets})
 
 
+@ login_required
 def add_tweet_view(request):
     if request.method == "POST":
         form = TweetForm(request.POST)
