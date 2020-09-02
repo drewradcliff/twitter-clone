@@ -27,6 +27,8 @@ urlpatterns = [
     path('logout/', logout_view),
     path('addtweet/', add_tweet_view),
     path('tweet/<int:tweet_id>/', tweet_view),
-    path('user/<int:user_id>/', user_view),
+    path('u/<str:username>/follow/', follow),
+    path('u/<str:username>/unfollow/', unfollow),
+    path('u/<str:username>/', user_view, name="user"),
     path('admin/', admin.site.urls),
 ]

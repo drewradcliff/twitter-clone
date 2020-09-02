@@ -30,8 +30,11 @@ def signup_view(request):
                 username=data.get("username"),
                 password=data.get("password"),
             )
-        login(request, new_user)
-        return HttpResponseRedirect(reverse("index"))
+            user = TwitterUser.objects.filter(id=new_user.id)
+            new_user.following.set(user)
+            if new_user:
+                login(request, new_user)
+                return HttpResponseRedirect(reverse("index"))
 
     form = SignupForm()
     return render(request, "generic_form.html", {"form": form})
