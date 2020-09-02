@@ -4,13 +4,12 @@
     <title>Twitter Clone 🐦</title>
   </head>
   <body>
-    <a href="/user/{{ user.id }}/"> {{ request.user.username }}</a>
     <ul>
       {% for tweet in tweets %}
       <li>
-        <a href="/user/{{ tweet.user.id }}/">{{ tweet.user }}</a><br />
-        {{ tweet.text }}
+        <div>{{ tweet.date }}<br />{{ tweet.text }}</div>
       </li>
+
       {% endfor %}
     </ul>
   </body>

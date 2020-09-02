@@ -18,12 +18,15 @@ from django.urls import path
 
 from tweet.views import *
 from authentication.views import *
+from twitteruser.views import *
 
 urlpatterns = [
     path('', index, name="index"),
-    path('addtweet/', add_tweet_view),
     path('login/', login_view, name="login"),
     path('signup/', signup_view, name="signup"),
     path('logout/', logout_view),
+    path('addtweet/', add_tweet_view),
+    path('tweet/<int:tweet_id>/', tweet_view),
+    path('user/<int:user_id>/', user_view),
     path('admin/', admin.site.urls),
 ]

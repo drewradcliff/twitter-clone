@@ -9,7 +9,13 @@ from twitteruser.models import TwitterUser
 @login_required
 def index(request):
     tweets = Tweet.objects.filter(user__in=request.user.following.all())
-    return render(request, "index.html", {"tweets": tweets})
+    user = request.user
+    return render(request, "index.html", {"tweets": tweets, "user": user})
+
+
+def tweet_view(request, tweet_id):
+    tweet = Tweet.objects.get(id=tweet_id)
+    return render(request, "tweet.html", {"tweet": tweet})
 
 
 @ login_required
