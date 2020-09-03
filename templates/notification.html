@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Notifications</title>
+  </head>
+  <body>
+    <ul>
+      {% for mention in notifications %}
+      <li>
+        <a href="/tweet/{{ mention.tweet.id }}/">
+          <div>{{ mention.tweet.date }}<br />{{ mention.tweet.text }}</div>
+        </a>
+      </li>
+
+      {% endfor %}
+    </ul>
+  </body>
+</html>

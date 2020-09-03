@@ -5,6 +5,9 @@ from django.db.models import Q
 from tweet.forms import TweetForm
 from tweet.models import Tweet
 from twitteruser.models import TwitterUser
+from notification.models import Notification
+
+import re
 
 
 @login_required
@@ -19,7 +22,7 @@ def tweet_view(request, tweet_id):
     return render(request, "tweet.html", {"tweet": tweet})
 
 
-@ login_required
+@login_required
 def add_tweet_view(request):
     if request.method == "POST":
         form = TweetForm(request.POST)
@@ -29,6 +32,17 @@ def add_tweet_view(request):
                 text=data.get('text'),
                 user=request.user,
             )
+
+            matches = re.findall(r"@\S+", tweet.text)
+            if matches:
+                for user in matches:
+                    mentioned_user = TwitterUser.objects.get(username=user[1:])
+                    if mentioned_user:
+                        Notification.objects.create(
+                            mentioned_user=mentioned_user,
+                            tweet=tweet,
+                        )
+
             return HttpResponseRedirect(reverse("index"))
 
     form = TweetForm()

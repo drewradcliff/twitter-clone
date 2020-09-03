@@ -19,6 +19,7 @@ from django.urls import path
 from tweet.views import *
 from authentication.views import *
 from twitteruser.views import *
+from notification.views import *
 
 urlpatterns = [
     path('', index, name="index"),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('logout/', logout_view),
     path('addtweet/', add_tweet_view),
     path('tweet/<int:tweet_id>/', tweet_view),
+    path('notification/', notification_view),
     path('u/<str:username>/follow/', follow),
     path('u/<str:username>/unfollow/', unfollow),
     path('u/<str:username>/', user_view, name="user"),
