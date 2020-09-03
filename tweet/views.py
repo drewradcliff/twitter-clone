@@ -12,7 +12,8 @@ import re
 
 @login_required
 def index(request):
-    tweets = Tweet.objects.filter(user__in=request.user.following.all())
+    tweets = Tweet.objects.filter(
+        user__in=request.user.following.all()).order_by('-date')
     user = request.user
     return render(request, "index.html", {"tweets": tweets, "user": user})
 

@@ -18,7 +18,7 @@ def login_view(request):
                 return HttpResponseRedirect(request.GET.get('next', reverse("index")))
 
     form = LoginForm()
-    return render(request, "generic_form.html", {"form": form})
+    return render(request, "generic_form.html", {"form": form, "login": True})
 
 
 def signup_view(request):
