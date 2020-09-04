@@ -8,45 +8,43 @@
     />
   </head>
   <body class="bg-gray-100">
-    <div class="">
-      <ul class="flex p-6">
-        <li class="mr-6">
-          <a class="text-blue-500 hover:text-blue-800" href="/">Home</a>
-        </li>
-        <li class="mr-6">
-          <a class="text-blue-500 hover:text-blue-800" href="/addtweet/">Create Tweet</a>
-        </li>
-        <li class="mr-6">
-          <a class="text-blue-500 hover:text-blue-800" href="/notification/">Notifications</a>
-        </li>
-        <li class="mr-6">
-          <a class="text-blue-500 hover:text-blue-800" href="/u/{{ request.user.username }}">@{{ request.user.username }}</a>
-        </li>
-        <li class="mr-6">
-          <a class="text-blue-500 hover:text-blue-800" href="/logout/">Logout</a>
-        </li>
-      </ul>
-        {% for tweet in tweets %}
-          <div class="max-w-md mx-auto m-2 flex p-6 bg-white rounded-lg shadow-xl">
-            <div class="flex-shrink-0">
-                <div class="h-12 w-12 bg-blue-200 rounded-full text-2xl text-gray-600 text-center py-1">{{ tweet.user.username.0 }}</div>
-            </div>
-            <div class="ml-6 pt-1 w-full">
-              <div class="flex items-center w-full">
-                <h4 class="text-xl text-gray-600 leading-tight">
-                  <a href="/u/{{ tweet.user.username }}/">@{{ tweet.user.username }}</a>
-                </h4>
-                <a class="w-full" href="/tweet/{{ tweet.id }}">
-                  <h4 class="text-l text-gray-600 leading-tight text-right">
-                    {{ tweet.date }}
-                  </h4>
-                </a>
-              </div>
-              <p class="text-base text-gray-900 leading-normal">{{ tweet.text }}</p>
-            </div>
+    <ul class="flex p-6">
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/">Home</a>
+      </li>
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/addtweet/">Create Tweet</a>
+      </li>
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/notification/">Notifications</a>
+      </li>
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/u/{{ request.user.username }}">@{{ request.user.username }}</a>
+      </li>
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/logout/">Logout</a>
+      </li>
+    </ul>
+      {% for tweet in tweets %}
+        <div class="max-w-md mx-auto m-2 flex p-6 bg-white rounded-lg shadow-xl">
+          <div class="flex-shrink-0">
+              <div class="h-12 w-12 bg-blue-200 rounded-full text-2xl text-gray-600 text-center py-1">{{ tweet.user.username.0 }}</div>
           </div>
-        {% endfor %}
-      </ul>
-    </div>
+          <div class="ml-6 pt-1 w-full">
+            <div class="flex items-center w-full">
+              <h4 class="text-xl text-gray-600 leading-tight">
+                <a href="/u/{{ tweet.user.username }}/">@{{ tweet.user.username }}</a>
+              </h4>
+              <a class="w-full" href="/tweet/{{ tweet.id }}">
+                <h4 class="text-l text-gray-600 leading-tight text-right">
+                  {{ tweet.date }}
+                </h4>
+              </a>
+            </div>
+            <p class="text-base text-gray-900 leading-normal">{{ tweet.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </ul>
   </body>
 </html>
