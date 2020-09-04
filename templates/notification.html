@@ -2,17 +2,65 @@
 <html lang="en">
   <head>
     <title>Notifications</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <ul>
-      {% for mention in notifications %}
-      <li>
-        <a href="/tweet/{{ mention.tweet.id }}/">
-          <div>{{ mention.tweet.date }}<br />{{ mention.tweet.text }}</div>
-        </a>
+  <body class="bg-gray-100">
+    <ul class="flex p-6">
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/">Home</a>
       </li>
-
-      {% endfor %}
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/addtweet/"
+          >Create Tweet</a
+        >
+      </li>
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/notification/"
+          >Notifications</a
+        >
+      </li>
+      <li class="mr-6">
+        <a
+          class="text-blue-500 hover:text-blue-800"
+          href="/u/{{ request.user.username }}"
+          >@{{ request.user.username }}</a
+        >
+      </li>
+      <li class="mr-6">
+        <a class="text-blue-500 hover:text-blue-800" href="/logout/">Logout</a>
+      </li>
     </ul>
+    {% if not notifications %}
+    <p class="text-center text-2xl max-w-md mx-auto m-2 p-6">You have no notifications</p>
+    {% endif %}
+    {% for mention in notifications %}
+    <div class="max-w-md mx-auto m-2 flex p-6 bg-white rounded-lg shadow-xl">
+      <div class="flex-shrink-0">
+        <div
+          class="h-12 w-12 bg-blue-200 rounded-full text-2xl text-gray-600 text-center py-1"
+        >
+          {{ mention.tweet.user.username.0 }}
+        </div>
+      </div>
+      <div class="ml-6 pt-1 w-full">
+        <div class="flex items-center w-full">
+          <h4 class="text-xl text-gray-600 leading-tight">
+            <a href="/u/{{ mention.tweet.user.username }}/"
+              >@{{ mention.tweet.user.username }}</a
+            >
+          </h4>
+          <a class="w-full" href="/tweet/{{ mention.tweet.id }}">
+            <h4 class="text-l text-gray-600 leading-tight text-right">
+              {{ mention.tweet.date }}
+            </h4>
+          </a>
+        </div>
+        <p class="text-base text-gray-900 leading-normal">{{ mention.tweet.text }}</p>
+      </div>
+    </div>
+    {% endfor %}
   </body>
 </html>
