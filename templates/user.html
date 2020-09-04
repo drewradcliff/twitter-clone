@@ -5,7 +5,7 @@
   </head>
   <body>
     <div>Tweets: {{ tweets|length }}<br />Following: {{ following }}</div>
-    {% if request.user != user %} {% if is_following %}
+    {% if request.user != user and request.user.username %} {% if is_following%}
     <a href="/u/{{ user.username }}/unfollow/">Unfollow</a>
     {% else %}
     <a href="/u/{{ user.username }}/follow/">Follow</a>
