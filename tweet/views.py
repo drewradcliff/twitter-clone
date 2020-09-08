@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from tweet.forms import TweetForm
 from tweet.models import Tweet
@@ -10,22 +12,26 @@ from notification.models import Notification
 import re
 
 
-@login_required
-def index(request):
-    tweets = Tweet.objects.filter(
-        user__in=request.user.following.all()).order_by('-date')
-    user = request.user
-    return render(request, "index.html", {"tweets": tweets, "user": user})
+class IndexView(LoginRequiredMixin, TemplateView):
+    def get(self, request):
+        tweets = Tweet.objects.filter(
+            user__in=request.user.following.all()).order_by('-date')
+        user = request.user
+        return render(request, "index.html", {"tweets": tweets, "user": user})
 
 
-def tweet_view(request, tweet_id):
-    tweet = Tweet.objects.get(id=tweet_id)
-    return render(request, "tweet.html", {"tweet": tweet})
+class TweetView(TemplateView):
+    def get(self, request, tweet_id):
+        tweet = Tweet.objects.get(id=tweet_id)
+        return render(request, "tweet.html", {"tweet": tweet})
 
 
-@login_required
-def add_tweet_view(request):
-    if request.method == "POST":
+class AddTweetView(LoginRequiredMixin, TemplateView):
+    def get(self, request):
+        form = TweetForm()
+        return render(request, "generic_form.html", {"form": form})
+
+    def post(self, request):
         form = TweetForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -45,6 +51,5 @@ def add_tweet_view(request):
                         )
 
             return HttpResponseRedirect(reverse("index"))
-
-    form = TweetForm()
-    return render(request, "generic_form.html", {"form": form})
+        else:
+            return render(request, "generic_form.html", {"form": form})

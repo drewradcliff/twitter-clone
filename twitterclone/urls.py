@@ -22,12 +22,12 @@ from twitteruser.views import *
 from notification.views import *
 
 urlpatterns = [
-    path('', index, name="index"),
-    path('login/', login_view, name="login"),
-    path('signup/', signup_view, name="signup"),
+    path('', IndexView.as_view(), name="index"),
+    path('login/', LoginView.as_view(), name="login"),
+    path('signup/', SignupView.as_view(), name="signup"),
     path('logout/', logout_view),
-    path('addtweet/', add_tweet_view),
-    path('tweet/<int:tweet_id>/', tweet_view),
+    path('addtweet/', AddTweetView.as_view()),
+    path('tweet/<int:tweet_id>/', TweetView.as_view()),
     path('notification/', notification_view),
     path('u/<str:username>/follow/', follow),
     path('u/<str:username>/unfollow/', unfollow),

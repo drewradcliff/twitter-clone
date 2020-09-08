@@ -1,13 +1,18 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 from authentication.forms import LoginForm, SignupForm
 from twitteruser.models import TwitterUser
 
 
-def login_view(request):
-    if request.method == "POST":
+class LoginView(TemplateView):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, "generic_form.html", {"form": form, "login": True})
+
+    def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -16,13 +21,16 @@ def login_view(request):
             if user:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', reverse("index")))
+        else:
+            render(request, "generic_form.html", {"form": form, "login": True})
 
-    form = LoginForm()
-    return render(request, "generic_form.html", {"form": form, "login": True})
 
+class SignupView(TemplateView):
+    def get(self, request):
+        form = SignupForm()
+        return render(request, "generic_form.html", {"form": form})
 
-def signup_view(request):
-    if request.method == "POST":
+    def post(self, request):
         form = SignupForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -35,9 +43,8 @@ def signup_view(request):
             if new_user:
                 login(request, new_user)
                 return HttpResponseRedirect(reverse("index"))
-
-    form = SignupForm()
-    return render(request, "generic_form.html", {"form": form})
+        else:
+            render(request, "generic_form.html", {"form": form})
 
 
 def logout_view(request):
