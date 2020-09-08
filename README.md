@@ -1,6 +1,6 @@
 # Twitter clone
 
-Using Django
+Using Django and Tailwind CSS
 
 ## Installation
 
